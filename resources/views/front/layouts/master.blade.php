@@ -34,9 +34,9 @@
     </div>
 </nav>
 
-    <div class="container pt-4">
-        @yield('content')
-    </div>
+<div class="container pt-4">
+    @yield('content')
+</div>
 
 
 

@@ -7,6 +7,6 @@
     <button class="btn btn-success">Not Oluştur</button>
     <br>
 
-Notlar listelenecek
+    Notlar listelenecek
 
 @endsection
