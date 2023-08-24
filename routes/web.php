@@ -21,8 +21,8 @@ Route::get('/', function () {
 //Note routeları
 
 Route::get('/notes',[NoteController::class,'index'])->name('note_index');
-
-
+Route::get('/notes/createPage',[NoteController::class,'createPage'])->name('notes_createPage'); //create
+Route::post('/notes/addNote',[NoteController::class,'addNote'])->name('notes_addNote'); //store
 
 
 //jetstream
