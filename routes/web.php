@@ -26,3 +26,15 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+//// Test Route Başlangıç
+///
+///
+
+Route::get('/masterTest',function (){
+    return view('front.layouts.master');
+});
+///
+///
+///
+/// Test Route Bitiş
