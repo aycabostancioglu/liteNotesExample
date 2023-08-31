@@ -7,6 +7,11 @@
     <button class="btn btn-success">Not Oluştur</button>
     <br>
 
-    Notlar listelenecek
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{session('success')}}
+        </div>
+    @endif
 
+    BU SAYFADA NOTLAR LİSTELENECEK
 @endsection
