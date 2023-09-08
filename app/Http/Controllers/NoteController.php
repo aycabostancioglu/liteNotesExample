@@ -10,7 +10,13 @@ class NoteController extends Controller
 {
     public function index()
     {
-        return view ('front.notes.index');
+        //$var = Note::get(); hepsini getirir
+        //$var = Note:: where('veritabaındaki sütun(haystack)','aramakİstediğimDeğer(needle)');
+        $user = Auth::user();
+        $notlar = Note::where('user_id',$user->id)->latest('updated_at')->paginate(3);  //koleksiyon
+
+        //$notlar = Auth::user()->getNotes;
+        return view ('front.notes.index',compact('notlar'));
     }
 
     public function createPage()
