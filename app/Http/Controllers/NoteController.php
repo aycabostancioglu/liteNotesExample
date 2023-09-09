@@ -53,4 +53,11 @@ class NoteController extends Controller
 
         return redirect()->route('notes_index')->with('success','Başarıyla Kaydedildi');
     }
+
+    public function detail1($notID)
+    {
+        $not = Note::find($notID);
+
+        return view('front.notes.detail1',compact('not'));
+    }
 }
