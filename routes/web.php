@@ -36,7 +36,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::post('/notes/addNote',[NoteController::class,'addNote'])->name('notes_addNote'); //store
 
 
-    Route::get('notes/detail/{note_id}',[NoteController::class,'detail1'])->name('notes_detail1');
+    Route::get('/notes/detail/{note}',[NoteController::class,'detail1'])->name('notes_detail1');
+    Route::get('/notes/update/{note_id}',[NoteController::class,'update'])->name('notes_update');
+    //Form güncelleme post
+    Route::post('/notes/update/edit/{note_id}',[NoteController::class,'edit'])->name('notes_editNote');
+
+
+    Route::post('/notes/update/edit',[NoteController::class,'editNoParameter'])->name('notes_editNoteParameter');
+
 });
 
 

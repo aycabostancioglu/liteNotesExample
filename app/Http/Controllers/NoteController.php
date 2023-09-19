@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Note;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class NoteController extends Controller
 {
@@ -39,7 +40,14 @@ class NoteController extends Controller
           [
               //'title' => 'Zorunlu minimum 3 karakter'
               'title' => 'required | min:13 | max:20',
-              'content' => 'required'
+              'content' => 'required | min:12'
+          ],
+          [
+              //custom message
+              //keyAdı,kuralAdı => 'Mesaj',
+              'title.required' => 'Başlık yazmayı unutma',
+              'title.min' => 'Lütfen başlığı daha uzun yaz',
+              'content.min' => 'İçerik 12 karakter olmalıdır'
           ]
         ); //true false
 
@@ -49,15 +57,65 @@ class NoteController extends Controller
         $note->user_id =Auth::user()->id;
         $note->title = $request->title;
         $note->content =$request->content;
+        $note->uuid=Str::uuid();
         $note->save();
 
         return redirect()->route('notes_index')->with('success','Başarıyla Kaydedildi');
+
     }
 
-    public function detail1($notID)
+    public function detail1(Note $note)
+    {
+        //query
+        //$not=Note::where('uuid',$notUUID)->first();
+
+
+        //$not = Note::find($notID);
+
+        if($note->user_id != Auth::user()->id){
+            abort('403');
+        }
+
+        return view('front.notes.detail1',compact('note'));
+    }
+
+    public function update($notID)
     {
         $not = Note::find($notID);
+        return view('front.notes.updateNoParam',compact('not'));
+    }
 
-        return view('front.notes.detail1',compact('not'));
+    public function edit(Request $request,$notID)
+    {
+        $request->validate([
+            'title' => 'required',
+            'content' => 'min:10'
+        ]);
+
+
+        //validasyon
+        $not = Note::find($notID);
+
+        $not->title = $request->title;
+        $not->content =$request->content;
+        $not->save();
+        return 'başarılı';
+    }
+
+    public function editNoParameter(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'content' => 'min:10',
+            'not_id' => 'required'
+        ]);
+
+        $not = Note::find($request->not_id);
+        $not->title = $request->title;
+        $not->content =$request->content;
+        $not->save();
+
+
+        return redirect()->route('notes_index')->with('success','Güncelleme Başarılı');
     }
 }

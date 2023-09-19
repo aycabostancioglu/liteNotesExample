@@ -13,6 +13,7 @@ class Note extends Model
 
     protected $fillable=[
         'user_id',
+        'uuid',
         'title',
         'content'
     ];
@@ -20,5 +21,10 @@ class Note extends Model
     public function getUser()
     {
         return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
     }
 }

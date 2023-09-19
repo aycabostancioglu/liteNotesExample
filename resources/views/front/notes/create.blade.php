@@ -5,7 +5,6 @@
 
 
         @if($errors->any())
-
             <div class="alert alert-danger">
                 <ul >
                     @foreach($errors->all() as $error)
@@ -13,7 +12,6 @@
                     @endforeach
                 </ul>
             </div>
-
         @endif
 
 
@@ -21,12 +19,15 @@
         @csrf
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Başlık</label>
-            <input type="text" name="title" placeholder="Not Başlığını Giriniz." class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+            <input type="text" name="title" value="{{old('title')}}" placeholder="Not Başlığını Giriniz." class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
             <!-- name -> key , değer -> value -->
+            @error('title')
+                {{$message}}
+            @enderror
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">İçerik</label>
-            <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3">{{old('content')}}</textarea>
         </div>
         <button type="submit" class="btn btn-success">Gönder</button>
     </form>
